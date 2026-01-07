@@ -18,4 +18,5 @@ model Movie {
   title String?
   imgURL String?
   rate Decimal?
+  posterId String?
 }

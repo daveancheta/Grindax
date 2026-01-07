@@ -10,11 +10,14 @@ export interface MovieDTO {
 }
 
 export async function getMovie() {
-
     const { userId } = await auth();
-    const movie = await prisma.movie.findMany()
-
     if (!userId) return [];
+
+    const movie = await prisma.movie.findMany({
+        where: {
+            posterId: userId,
+        }
+    })
 
     return movie.map(m => ({
         id: m.id,
