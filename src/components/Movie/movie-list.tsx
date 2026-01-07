@@ -8,7 +8,7 @@ const MovieItem = [
         imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBV4DwisDoIO-v1M44sNNYtyOM2GSL3q-vijXQyB_VDuZqyop8NgiZQajBO-3oqbbzfuXIcA&s=10",
         rate: 8.4
     },
-     {
+    {
         id: 2,
         title: "Avengers: Infinity War",
         imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiy9vZsPzLtmD7BUSRnwUrEEM3b-wRzgWEndERcCGBTZp-chAmggbfyF_Q0-hHWgOVhjE66w&s=10",
@@ -38,13 +38,13 @@ const MovieItem = [
         imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1hCDJCRU--M2ya7aX2kn2MOARr82PKrC4PTZcEbhfHcNpsIax3ZWBWh5BbnAn6bHUc5Ke&s=10",
         rate: 8.4
     },
-     {
+    {
         id: 7,
         title: "The Union",
         imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNfipYHuzjFSCqYFSRyR4LF_htbu9udK4LCY2ku5VHJc9orGBAlQjIFHp76vGLWM7hMX6Gsg&s=10",
         rate: 8.4
     },
-     {
+    {
         id: 8,
         title: "My Girlfriend Is A Serial Killer",
         imgUrl: "https://m.media-amazon.com/images/M/MV5BMDFhNGQ2ZjgtNDA0Yy00OTk0LWE4NzYtYmY3YjBiMTM2ZWI2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
@@ -55,14 +55,14 @@ const MovieItem = [
 function MovieList() {
     return (
         <div className='wrapper p-4'>
-            <AddMovie />    
-            <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+            <AddMovie />
+            <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 space-x-2'>
                 {MovieItem.map((m) => (
-                    <div key={m.id} className='relative w-90 h-130 mb-4'>
+                    <div key={m.id} className='relative mb-4'>
                         <img className='rounded-md border border-white w-full h-full' src={m.imgUrl} alt="" />
                         <div className='absolute bottom-0 left-0 w-full 
                         bg-linear-to-t from-secondary/70 to-transparent p-4 flex justify-between items-center'>
-                            <h1 className='text-xl font-bold'>{m.title}</h1>
+                            <h1 className='text-sm xl:text-lg font-bold'>{m.title}</h1>
                             <span className='text-sm font-medium flex items-center gap-1'>
                                 <Star className='size-4 fill-yellow-500 text-yellow-500' />
                                 {m.rate}</span>
