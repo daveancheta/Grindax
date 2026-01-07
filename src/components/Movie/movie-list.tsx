@@ -61,8 +61,9 @@ function MovieList() {
                     <div key={m.id} className='relative mb-4'>
                         <img className='rounded-md border border-white w-full h-full' src={m.imgUrl} alt="" />
                         <div className='absolute bottom-0 left-0 w-full 
-                        bg-linear-to-t from-secondary/70 to-transparent p-4 flex justify-between items-center'>
-                            <h1 className='text-sm xl:text-lg font-bold'>{m.title}</h1>
+                        bg-linear-to-t from-black/70 to-transparent   p-4 flex flex-col 
+                        sm:flex-row justify-between items-start sm:items-center'>
+                            <h1 className='text-xs xl:text-lg font-bold'>{m.title}</h1>
                             <span className='text-sm font-medium flex items-center gap-1'>
                                 <Star className='size-4 fill-yellow-500 text-yellow-500' />
                                 {m.rate}</span>
