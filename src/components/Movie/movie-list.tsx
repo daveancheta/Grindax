@@ -59,7 +59,7 @@ function MovieList() {
             <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 space-x-2'>
                 {MovieItem.map((m) => (
                     <div key={m.id} className='relative mb-4'>
-                        <img className='rounded-md border border-white w-full h-full' src={m.imgUrl} alt="" />
+                        <img className='rounded-md border border-white w-full h-full object-cover' src={m.imgUrl} alt="" />
                         <div className='absolute bottom-0 left-0 w-full 
                         bg-linear-to-t from-black/70 to-transparent   p-4 flex flex-col 
                         sm:flex-row justify-between items-start sm:items-center'>

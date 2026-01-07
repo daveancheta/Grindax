@@ -22,7 +22,7 @@ function AddMovie() {
         <div>
             <SignedOut>
                 <SignInButton>
-                    <Button className="mb-4">
+                    <Button className="mb-4 cursor-pointer">
                         <Plus />
                         Add Movie
                     </Button>
@@ -31,7 +31,8 @@ function AddMovie() {
             <SignedIn>
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button className="mb-4" variant="default">
+                        <Button className="mb-4 cursor-pointer"
+                            variant="default">
                             <Plus />
                             Add Movie</Button>
                     </DialogTrigger>
@@ -40,10 +41,10 @@ function AddMovie() {
                             <DialogHeader>
                                 <DialogTitle>Add Movie</DialogTitle>
                                 <DialogDescription>
-                                    lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Add a new movie to your collection by providing its title, image URL, and rating. Make sure the details are accurate before submitting.
                                 </DialogDescription>
                             </DialogHeader>
-                            <div className="grid gap-4">
+                            <div className="grid gap-4 mt-4">
                                 <div className="grid gap-3">
                                     <Label htmlFor="title">Movie Title</Label>
                                     <Input id="title" name="title" placeholder="Redeeming Love" />
@@ -52,7 +53,7 @@ function AddMovie() {
                                     <Label htmlFor="imgUrl">Image Url</Label>
                                     <Input id="imgUrl" name="imgUrl" placeholder="https://example.com/image.jpeg" />
                                 </div>
-                                <div className="grid gap-3">
+                                <div className="grid gap-3 mb-4">
                                     <Label htmlFor="rate">Rate</Label>
                                     <Input id="rate" name="rate" placeholder="8.5" />
                                 </div>
