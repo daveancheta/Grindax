@@ -1,5 +1,6 @@
 import { Star } from 'lucide-react'
 import AddMovie from './add-movie'
+import { getMovie } from '@/app/actions/movie.action'
 
 const MovieItem = [
     {
@@ -52,21 +53,29 @@ const MovieItem = [
     }
 ]
 
-function MovieList() {
+interface Movie {
+    id: number;
+    title: string | null;
+    imgURL: string | null;
+    rate: number | null;
+}
+
+async function MovieList() {
+    const movie = await getMovie() as Movie[];
     return (
         <div className='wrapper p-4'>
             <AddMovie />
             <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 space-x-2'>
-                {MovieItem.map((m) => (
+                {movie.map((m) => (
                     <div key={m.id} className='relative mb-4'>
-                        <img className='rounded-md border border-white w-full h-full object-cover' src={m.imgUrl} alt="" />
+                        <img className='rounded-md border border-white w-full h-full object-cover' src={m?.imgURL ?? "placeholder.jpg"} alt="" />
                         <div className='absolute bottom-0 left-0 w-full 
                         bg-linear-to-t from-black/70 to-transparent   p-4 flex flex-col 
                         sm:flex-row justify-between items-start sm:items-center'>
-                            <h1 className='text-xs xl:text-lg font-bold'>{m.title}</h1>
+                            <h1 className='text-xs xl:text-lg font-bold'>{m?.title}</h1>
                             <span className='text-sm font-medium flex items-center gap-1'>
                                 <Star className='size-4 fill-yellow-500 text-yellow-500' />
-                                {m.rate}</span>
+                                {m?.rate}</span>
                         </div>
                     </div>
                 ))}
