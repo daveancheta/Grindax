@@ -75,7 +75,7 @@ async function MovieList() {
                             <h1 className='text-xs xl:text-lg font-bold'>{m?.title}</h1>
                             <span className='text-sm font-medium flex items-center gap-1'>
                                 <Star className='size-4 fill-yellow-500 text-yellow-500' />
-                                {m?.rate}</span>
+                                {m?.rate?.toString()}</span>
                         </div>
                     </div>
                 ))}
