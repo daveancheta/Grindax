@@ -16,7 +16,6 @@ datasource db {
 model Movie {
   id Int @id @default(autoincrement())
   title String?
-  imgURL String?
   rate Decimal?
   posterId String?
 }

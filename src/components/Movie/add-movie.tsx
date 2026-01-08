@@ -109,10 +109,6 @@ function AddMovie() {
                                     <Label htmlFor="title">Movie Title</Label>
                                     <Input id="title" name="title" placeholder="Redeeming Love" />
                                 </div>
-                                <div className="grid gap-3">
-                                    <Label htmlFor="imgUrl">Image Url</Label>
-                                    <Input id="imgUrl" name="imgURL" placeholder="https://example.com/image.jpeg" />
-                                </div>
                                 <div className="grid gap-3 mb-4">
                                     <Label htmlFor="rate">Rate</Label>
                                     <Input type="number" id="rate" name="rate" placeholder="8.5" />

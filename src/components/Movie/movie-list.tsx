@@ -19,10 +19,10 @@ async function MovieList() {
     const movieWithPoster = await Promise.all(
         movie.map(async (movie) => {
             const tmdbData = await searchMovie(movie.title);
-            const res = tmdbData.results[0]
+            const res = tmdbData.results[0];
             return {
                 ...movie,
-                posterUrl: `https://image.tmdb.org/t/p/w500${res.poster_path}`
+                posterUrl: res?.poster_path ? `https://image.tmdb.org/t/p/w500${res.poster_path}` : "https://placeholder.jpeg"
             }
         })
     )

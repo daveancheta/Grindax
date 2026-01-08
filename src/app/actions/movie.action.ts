@@ -5,7 +5,6 @@ import { auth } from "@clerk/nextjs/server";
 export interface MovieDTO {
     id: number;
     title: string;
-    imgURL: string;
     rate: number;
 }
 
@@ -22,14 +21,12 @@ export async function getMovie() {
     return movie.map(m => ({
         id: m.id,
         title: m.title ?? "Untitled",
-        imgURL: m.imgURL ?? "/placeholder.jpg",
         rate: m.rate ? m.rate.toNumber() : 0
     }));
 }
 
 export async function postMovie(formData: FormData) {
     const title = formData.get("title")?.toString();
-    const imgURL = formData.get("imgURL")?.toString();
     const rate = Number(formData.get("rate"));
     const { userId } = await auth();
 
@@ -38,7 +35,7 @@ export async function postMovie(formData: FormData) {
             throw new Error("Unauthorized")
         }
 
-        if (!title || !imgURL || !rate) {
+        if (!title || !rate) {
             return {
                 success: false,
                 message: "Ensure all fields are filled correctly"
@@ -48,7 +45,6 @@ export async function postMovie(formData: FormData) {
         const movie = await prisma.movie.create({
             data: {
                 title,
-                imgURL,
                 rate,
                 posterId: userId
             }
