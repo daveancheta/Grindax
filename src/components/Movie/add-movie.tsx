@@ -15,37 +15,19 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { postMovie } from "@/app/actions/movie.action"
-import { toast } from "react-hot-toast";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert"
 import { useState } from "react"
+import { movieStore } from "@/app/stores/movieStore"
 
 
 function AddMovie() {
-    const [success, setSuccess] = useState<String>("")
-    const [error, setError] = useState<string>("")
-    const [isListing, setIsListing] = useState<boolean>(false)
+    const { handlePostMovie, isSubmitting, isSuccess, isError } = movieStore();
 
-    const handlePostMovie = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmitMovie = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        setIsListing(true)
-
         const formData = new FormData(e.currentTarget)
-        try {
-            const res = await postMovie(formData)
-            if (res.success) {
-                setSuccess(res.message)
-                setError("")
-            } else {
-                setError(res.message)
-                setSuccess("")
-            }
-        } catch (error: any) {
-            toast.error(error.message || "Something went wrong");
-        } finally {
-            setIsListing(false)
-        }
+        handlePostMovie(formData)
     }
 
     return (
@@ -67,7 +49,7 @@ function AddMovie() {
                             Add Movie</Button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-106.25">
-                        <form onSubmit={handlePostMovie}>
+                        <form onSubmit={handleSubmitMovie}>
                             <DialogHeader>
                                 <DialogTitle>Add Movie</DialogTitle>
                                 <DialogDescription>
@@ -75,19 +57,19 @@ function AddMovie() {
                                 </DialogDescription>
                             </DialogHeader>
                             <div className="mt-5">
-                                {success.length > 0 &&
+                                {isSuccess &&
                                     <Alert>
                                         <CheckCircle2Icon />
                                         <AlertTitle>Success! Your changes have been saved</AlertTitle>
                                         <AlertDescription>
-                                            {success}
+                                            Movie added! You can view it in your collection.
                                         </AlertDescription>
                                     </Alert>
                                 }
                             </div>
 
                             <div>
-                                {error.length > 0 &&
+                                {isError &&
                                     <div>
                                         <Alert variant="destructive">
                                             <AlertCircleIcon />
@@ -95,7 +77,7 @@ function AddMovie() {
                                             <AlertDescription>
                                                 <p>There was an error while saving your movie.</p>
                                                 <ul className="list-inside list-disc text-sm">
-                                                    <li>{error}</li>
+                                                    <li>Ensure all fields are filled correctly</li>
                                                 </ul>
                                             </AlertDescription>
                                         </Alert>
@@ -116,10 +98,10 @@ function AddMovie() {
                             </div>
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button variant="outline" disabled={isListing}>Cancel</Button>
+                                    <Button variant="outline" disabled={isSubmitting}>Cancel</Button>
                                 </DialogClose>
-                                <Button type="submit" disabled={isListing}>
-                                    {isListing &&
+                                <Button type="submit" disabled={isSubmitting}>
+                                    {isSubmitting &&
                                         <div>
                                             <Loader2Icon className="animate-spin w-4" />
                                         </div>}
