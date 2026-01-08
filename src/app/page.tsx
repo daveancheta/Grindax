@@ -3,7 +3,7 @@ import { SignIn } from "@clerk/nextjs"
 
 export default function Home() {
   return (
-    <div>
+    <div className="w-screen">
       <MovieList />
     </div>
   )
