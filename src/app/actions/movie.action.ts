@@ -26,3 +26,45 @@ export async function getMovie() {
         rate: m.rate ? m.rate.toNumber() : 0
     }));
 }
+
+export async function postMovie(formData: FormData) {
+    const title = formData.get("title")?.toString();
+    const imgURL = formData.get("imgURL")?.toString();
+    const rate = Number(formData.get("rate"));
+    const { userId } = await auth();
+
+    try {
+        if (!userId) {
+            throw new Error("Unauthorized")
+        }
+
+        if (!title || !imgURL || !rate) {
+            return {
+                success: false,
+                message: "Ensure all fields are filled correctly"
+            }
+        }
+
+        const movie = await prisma.movie.create({
+            data: {
+                title,
+                imgURL,
+                rate,
+                posterId: userId
+            }
+        })
+
+        return {
+            success: true,
+            message: "Movie added! You can view it in your collection."
+        }
+
+    } catch (error) {
+        console.log("Error in Post Movie", error);
+        return {
+            success: false,
+            message: "Error in Post Movie"
+        }
+    }
+
+}
