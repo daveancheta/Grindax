@@ -1,5 +1,5 @@
 "use client"
-import { AlertCircleIcon, CheckCircle2Icon, Plus, PopcornIcon } from "lucide-react"
+import { AlertCircleIcon, CheckCircle2Icon, Loader2Icon, Plus, PopcornIcon } from "lucide-react"
 import { SignedOut, SignInButton } from "@clerk/nextjs"
 import { SignedIn } from "@clerk/clerk-react"
 import { Button } from "@/components/ui/button"
@@ -23,10 +23,13 @@ import { useState } from "react"
 
 function AddMovie() {
     const [success, setSuccess] = useState<String>("")
-    const [error, setError] = useState<String>("")
+    const [error, setError] = useState<string>("")
+    const [isListing, setIsListing] = useState<boolean>(false)
 
     const handlePostMovie = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        setIsListing(true)
 
         const formData = new FormData(e.currentTarget)
         try {
@@ -40,6 +43,8 @@ function AddMovie() {
             }
         } catch (error: any) {
             toast.error(error.message || "Something went wrong");
+        } finally {
+            setIsListing(false)
         }
     }
 
@@ -115,9 +120,14 @@ function AddMovie() {
                             </div>
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button variant="outline">Cancel</Button>
+                                    <Button variant="outline" disabled={isListing}>Cancel</Button>
                                 </DialogClose>
-                                <Button type="submit">Submit Movie</Button>
+                                <Button type="submit" disabled={isListing}>
+                                    {isListing &&
+                                        <div>
+                                            <Loader2Icon className="animate-spin w-4" />
+                                        </div>}
+                                    Submit Movie</Button>
                             </DialogFooter>
                         </form>
                     </DialogContent>
