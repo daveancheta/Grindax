@@ -31,7 +31,7 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
 
                 <img className='rounded-md border border-white w-full 
                                 h-full object-cover' src={posterUrl}
-                                draggable={false} alt="" />
+                    draggable={false} alt="" />
                 <div className='absolute bottom-0 left-0 w-full 
                         bg-linear-to-t from-black/70 to-transparent p-4 flex flex-col 
                         sm:flex-row justify-between items-start sm:items-center'>
@@ -55,7 +55,11 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
                 onMouseLeave={() => {
                     setIsHover(0)
                 }}>
-                <img className='object-cover rounded-t-sm' src={backdropUrl} alt="" draggable={false}/>
+                <div className='relative'>
+                    <img className='object-cover rounded-t-sm' src={backdropUrl} alt="" draggable={false} />
+                    <div className='absolute bottom-0 bg-linear-to-t from-black/70 to-transparent w-full h-10'></div>
+                </div>
+
                 <div className='bg-background rounded-b-sm p-3 flex flex-col 
                 sm:items-start item-center gap-2'>
                     <span className='text-sm font-medium flex items-center gap-1'>
