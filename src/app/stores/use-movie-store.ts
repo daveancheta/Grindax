@@ -1,7 +1,5 @@
 import { create } from 'zustand'
 import { getMovie, MovieDTO, postMovie } from '../actions/movie.action'
-import { auth } from '@clerk/nextjs/server';
-import { Movie } from '@/generated/prisma/client';
 import 'dotenv/config'
 
 interface MovieState {
