@@ -74,9 +74,10 @@ function AddMovie() {
                                             <AlertCircleIcon />
                                             <AlertTitle>Unable to add movie</AlertTitle>
                                             <AlertDescription>
-                                                <p>There was an error while saving your movie.</p>
+                                                <p>We couldn’t save your movie.</p>
                                                 <ul className="list-inside list-disc text-sm">
-                                                    <li>Ensure all fields are filled correctly</li>
+                                                    <li>Please check that all fields are filled out correctly.</li>
+                                                    <li>This movie may already exist in the database.</li>
                                                 </ul>
                                             </AlertDescription>
                                         </Alert>
