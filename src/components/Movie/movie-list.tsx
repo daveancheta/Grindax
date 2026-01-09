@@ -3,7 +3,7 @@ import { UseMovieStore } from '@/app/stores/use-movie-store';
 import AddMovie from './add-movie'
 import EmptyState from './empty-state';
 import MovieDisplay from './movie-display';
-import { use, useEffect } from 'react';
+import { useEffect } from 'react';
 
 function MovieList() {
     const { handleGetMovie, movies, enrichedMovies } = UseMovieStore()

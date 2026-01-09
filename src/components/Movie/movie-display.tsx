@@ -11,8 +11,8 @@ interface MovieDTO {
     backdropUrl?: string;
     voteAverage?: number;
     voteCount?: number;
-    vote_count?: number;  // If this is required
-    vote_average?: number; // If this is required
+    vote_count?: number;  
+    vote_average?: number; 
     popularity?: number;
     overview?: string;
 }
