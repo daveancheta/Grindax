@@ -50,9 +50,19 @@ export async function postMovie(formData: FormData) {
             }
         }
 
+        const inputMovie = await prisma.movie.findFirst({
+            where: {
+                title: title?.toLowerCase()
+            }
+        })
+        
+        if (inputMovie) return {
+            success: false
+        }
+
         const movie = await prisma.movie.create({
             data: {
-                title,
+                title: title?.toLowerCase(),
                 rate,
                 posted_by: userId
             }
