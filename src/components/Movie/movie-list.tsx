@@ -26,8 +26,8 @@ function MovieList() {
                                 posterUrl={m.posterUrl}
                                 backdropUrl={m.backdropUrl}
                                 rate={m.rate}
-                                voteAverage={Number(m.vote_average)}
-                                voteCount={Number(m.vote_count)}
+                                voteAverage={m.voteAverage}
+                                voteCount={m.voteCount}
                                 popularity={m.popularity}
                                 overview={m.overview} />
                         ))}

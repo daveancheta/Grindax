@@ -22,7 +22,7 @@ export async function getMovie() {
 
     const movie = await prisma.movie.findMany({
         where: {
-            posterId: userId,
+            posted_by: userId,
         }
     })
 
@@ -54,7 +54,7 @@ export async function postMovie(formData: FormData) {
             data: {
                 title,
                 rate,
-                posterId: userId
+                posted_by: userId
             }
         })
 

@@ -93,7 +93,7 @@ function AddMovie() {
                                 </div>
                                 <div className="grid gap-3 mb-4">
                                     <Label htmlFor="rate">Rate</Label>
-                                    <Input type="number" id="rate" name="rate" placeholder="8.5" />
+                                    <Input type="number" step="0.1" id="rate" name="rate" placeholder="8.5" />
                                 </div>
                             </div>
                             <DialogFooter>

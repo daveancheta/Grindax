@@ -17,5 +17,5 @@ model Movie {
   id Int @id @default(autoincrement())
   title String?
   rate Decimal?
-  posterId String?
+  posted_by String?
 }
