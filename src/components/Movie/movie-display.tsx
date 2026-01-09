@@ -37,7 +37,7 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
                 <div className='absolute bottom-0 left-0 w-full 
                         bg-linear-to-t from-black/70 to-transparent p-4 flex flex-col 
                         sm:flex-row justify-between items-start sm:items-center'>
-                    <h1 className='text-xs xl:text-lg font-bold'>{title}</h1>
+                    <h1 className='text-xs xl:text-lg font-bold capitalize'>{title}</h1>
                     <span className='text-sm font-medium flex items-center gap-1'>
                         <Star className='size-4 fill-yellow-500 text-yellow-500' />
                         {rate}</span>
