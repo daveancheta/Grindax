@@ -6,6 +6,7 @@ interface MovieState {
     isSubmitting: boolean;
     isSuccess: boolean;
     isError: boolean;
+    isLoadingMovies: boolean;
     handlePostMovie: (formData: FormData) => Promise<void>;
     handleGetMovie: () => Promise<void>;
     movies: MovieDTO[];
@@ -27,6 +28,7 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
     isSubmitting: false,
     isSuccess: false,
     isError: false,
+    isLoadingMovies: false,
     movies: [],
     enrichedMovies: [],
 
@@ -37,8 +39,6 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
         const tempId = `temp-${Date.now()}`
         const title = formData.get("title") as string
         const rate = Number(formData.get("rate"))
-
-
 
         try {
             const res = await postMovie(formData)
@@ -84,6 +84,8 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
     },
 
     handleGetMovie: async () => {
+        set({ isLoadingMovies: true })
+
         try {
             const movies = await getMovie()
             set({ movies })
@@ -106,6 +108,8 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
             set({ enrichedMovies: movieWithTMDBData })
         } catch (error) {
             console.log(error)
+        } finally {
+            set({ isLoadingMovies: false })
         }
     }
 }))
