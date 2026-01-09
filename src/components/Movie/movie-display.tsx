@@ -11,8 +11,8 @@ interface MovieDTO {
     backdropUrl?: string;
     voteAverage?: number;
     voteCount?: number;
-    vote_count?: number;  
-    vote_average?: number; 
+    vote_count?: number;
+    vote_average?: number;
     popularity?: number;
     overview?: string;
 }
@@ -30,9 +30,8 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
                 onMouseLeave={() => {
                     setIsHover(0)
                 }}>
-
                 <img className='rounded-md border border-white w-full 
-                                max-h-110 object-cover' src={posterUrl}
+                                max-h-110 sm:min-h-110 object-cover' src={posterUrl && posterUrl.length !== 24 ? posterUrl : "placeholder.png"}
                     draggable={false} alt="" />
                 <div className='absolute bottom-0 left-0 w-full 
                         bg-linear-to-t from-black/70 to-transparent p-4 flex flex-col 
@@ -49,7 +48,7 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
 
             </div>
 
-            <div className={cn('sm:absolute sm:border border-0 rounded-b-sm fixed sm:top-10 top-50 sm:left-0 -left-2 z-40 scale-100 opacity-100 transition-all duration-300 sm:mx-2 mx-8 sm:max-w-70',
+            <div className={cn('sm:absolute border-0 rounded-b-sm fixed sm:top-10 top-50 sm:left-0 -left-2 z-40 scale-100 opacity-100 transition-all duration-300 sm:mx-2 mx-8 sm:max-w-70',
                 isHover !== id && "opacity-0 scale-0")}
                 onMouseEnter={() => {
                     setIsHover(id)
@@ -57,8 +56,9 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
                 onMouseLeave={() => {
                     setIsHover(0)
                 }}>
+
                 <div className='relative'>
-                    <img className='object-cover rounded-t-sm' src={backdropUrl} alt="" draggable={false} />
+                    <img className='object-cover rounded-t-sm max-h-50 min-w-75 sm:min-w-70' src={backdropUrl && backdropUrl.length !== 24 ? backdropUrl : "placeholder.png"} alt="" draggable={false} />
                     <div className='absolute bottom-0 bg-linear-to-t from-black/70 to-transparent w-full h-10'></div>
                 </div>
 
@@ -66,22 +66,22 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
                 sm:items-start item-center gap-2'>
                     <span className='text-sm font-medium flex items-center gap-1'>
                         <Star className='size-5 fill-yellow-500 text-yellow-500 truncate' />
-                        {voteAverage?.toFixed(1)} - TMDB
+                        {voteAverage !== null ? voteAverage?.toFixed(1) : "Undefined"} - TMDB
                     </span>
                     <span className='text-sm font-medium flex items-center gap-1'>
                         <Vote className='size-5 text-green-500 truncate' />
-                        {voteCount?.toLocaleString("en-PH")} - TMDB
+                        {voteCount !== null ? voteCount?.toLocaleString("en-PH") : "Undefined"} - TMDB
                     </span>
                     <span className='text-sm font-medium flex items-center gap-1'>
                         <Flame className='size-5 text-red-500 fill-red-500 truncate' />
-                        {popularity?.toFixed(1)} - TMDB
+                        {popularity !== null ? popularity?.toFixed(1) : "Undefined"} - TMDB
                     </span>
                     <p className='wrap-break-word w-fit'>
                         {overview && overview.length > 120 ? <>
                             {overview?.slice(0, 120) + '...'}<button className='font-bold cursor-pointer'>see more</button>
                         </>
                             :
-                            overview}
+                            overview || overview === null && "Undefined"}
                     </p>
                 </div>
             </div>
