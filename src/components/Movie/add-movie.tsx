@@ -17,11 +17,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert"
 import { useState } from "react"
-import { movieStore } from "@/app/stores/movieStore"
+import { UseMovieStore } from "@/app/stores/use-movie-store"
 
 
 function AddMovie() {
-    const { handlePostMovie, isSubmitting, isSuccess, isError } = movieStore();
+    const { handlePostMovie, isSubmitting, isSuccess, isError } = UseMovieStore();
 
     const handleSubmitMovie = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

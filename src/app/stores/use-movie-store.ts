@@ -1,16 +1,19 @@
 import { create } from 'zustand'
-import { postMovie } from '../actions/movie.action'
+import { getMovie, MovieDTO, postMovie } from '../actions/movie.action'
 
 interface MovieState {
     isSubmitting: boolean;
     isSuccess: boolean;
     isError: boolean;
     handlePostMovie: (formData: FormData) => Promise<void>;
+    handleGetMovie: () => Promise<void>;
+    movie: MovieDTO[]
 }
-export const movieStore = create<MovieState>((set) => ({
+export const UseMovieStore = create<MovieState>((set) => ({
     isSubmitting: false,
     isSuccess: false,
     isError: false,
+    movie: [],
 
     handlePostMovie: async (formData: FormData) => {
         set({ isSubmitting: true })
@@ -27,6 +30,15 @@ export const movieStore = create<MovieState>((set) => ({
             console.log(error)
         } finally {
             set({ isSubmitting: false })
+        }
+    },
+
+    handleGetMovie: async () => {
+        try {
+            const res = await getMovie();
+            set({ movie: res })
+        } catch (error) {
+            console.log(error)
         }
     }
 }))
