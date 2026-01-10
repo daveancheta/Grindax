@@ -6,7 +6,21 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Flame, MoreHorizontalIcon, Star, Vote } from 'lucide-react';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+
 
 export const genreColors: Record<string, string> = {
     "Action": "bg-red-600 text-white",
@@ -36,14 +50,21 @@ export function getGenreColors(genre: string): string {
 
 
 function Movie({ params }: { params: Promise<{ id: string }> }) {
-    const { handleGetMovieById, enrichedMoviesById, isLoadingMovieDetail } = UseMovieStore()
+    const { handleGetMovieById, enrichedMoviesById, isLoadingMovieDetail, handleDeleteMovie } = UseMovieStore()
     const isMobile = useIsMobile();
+    const router = useRouter();
+    const [open, setOpen] = useState<boolean>(false)
 
     useEffect(() => {
         handleGetMovieById(params)
     }, [handleGetMovieById])
 
     if (isLoadingMovieDetail) return <SkeletonMovieDetail />
+
+    const handleDeleteMovieButton = async (id: number) => {
+        handleDeleteMovie(id)
+        router.push("/")
+    }
 
     return (
         <div className='relative min-h-screen'>
@@ -77,7 +98,7 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                     </h1>
                                     <DropdownMenu modal={false}>
                                         <DropdownMenuTrigger asChild>
-                                            <Button variant="outline" aria-label="Open menu" size="icon-sm">
+                                            <Button className='cursor-pointer' variant="outline" aria-label="Open menu" size="icon-sm">
                                                 <MoreHorizontalIcon />
                                             </Button>
                                         </DropdownMenuTrigger>
@@ -87,15 +108,32 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                                 <DropdownMenuItem>
                                                     Edit
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem variant='destructive'>
+                                                <DropdownMenuItem variant='destructive'
+                                                    onClick={() => setOpen(true)}>
                                                     Delete
                                                 </DropdownMenuItem>
-
                                             </DropdownMenuGroup>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
+                                    <Dialog open={open} onOpenChange={setOpen} modal={false}>
+                                        <DialogContent className="sm:max-w-[425px]" onInteractOutside={(event) => event.preventDefault()}>
+                                            <DialogHeader>
+                                                <DialogTitle>Are you absolutely sure?</DialogTitle>
+                                                <DialogDescription>
+                                                    This action cannot be undone. Your movie will be permanently deleted, and you will be redirected to the home page.
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <DialogFooter>
+                                                <DialogClose asChild>
+                                                    <Button variant="outline">Cancel</Button>
+                                                </DialogClose>
+                                                <Button type="submit" variant={"destructive"}
+                                                    onClick={() => handleDeleteMovieButton(Number(enrichedMoviesById?.id))}>
+                                                    I&apos;m sure</Button>
+                                            </DialogFooter>
+                                        </DialogContent>
+                                    </Dialog>
                                 </div>
-
 
                                 <div className='flex flex-wrap items-center gap-3'>
                                     <div className='flex items-center gap-2 px-4 py-2.5 backdrop-blur-md bg-white/20 rounded-lg border border-white/30 shadow-lg hover:bg-white/30 transition-colors'>

@@ -1,8 +1,6 @@
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
-import React from 'react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
-import { Clapperboard } from 'lucide-react'
 
 const Logo = () => {
     return (
@@ -18,7 +16,7 @@ const Logo = () => {
 
 function Header() {
     return (
-        <header className='sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10'>
+        <header className='sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10 w-full'>
             <div className='max-w-7xl mx-auto px-6 lg:px-8'>
                 <div className='flex justify-between items-center h-16'>
                     <Logo />

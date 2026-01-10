@@ -1,6 +1,7 @@
 "use server"
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export async function getMovie() {
     const { userId } = await auth();
@@ -26,14 +27,14 @@ export async function getMovieById(id: number) {
         }
     })
 
-    if(!movie) return null;
+    if (!movie) return null;
 
     return {
         id: movie.id,
         title: movie.title ?? "Untitled",
         rate: movie.rate ? movie.rate.toNumber() : 0
     }
-      
+
 }
 
 export async function postMovie(formData: FormData) {
@@ -58,7 +59,7 @@ export async function postMovie(formData: FormData) {
                 title: title?.toLowerCase()
             }
         })
-        
+
         if (inputMovie) return {
             success: false
         }
@@ -83,5 +84,22 @@ export async function postMovie(formData: FormData) {
             message: "Error in Post Movie"
         }
     }
+}
 
+export async function deleteMovie(id: number) {
+    try {
+        const { userId } = await auth();
+
+        if (!userId) {
+            throw new Error("Unauthorized")
+        }
+
+        await prisma.movie.delete({
+            where: {
+                id: id
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
 }

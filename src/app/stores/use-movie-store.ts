@@ -1,5 +1,6 @@
+"use client"
 import { create } from 'zustand'
-import { getMovie, getMovieById, postMovie } from '../actions/movie.action'
+import { deleteMovie, getMovie, getMovieById, postMovie } from '../actions/movie.action'
 import 'dotenv/config'
 import { MovieDTO } from '@/types/movie';
 import { TMDB_GENRES } from '@/lib/tmdb-constants';
@@ -16,6 +17,7 @@ interface MovieState {
     enrichedMovies: MovieDTO[];
     enrichedMoviesById: MovieDTO | null,
     handleGetMovieById: (params: Promise<{ id: string }>) => Promise<void>;
+    handleDeleteMovie: (id: number) => Promise<void>;
 }
 
 const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -152,6 +154,13 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
         } finally {
             set({ isLoadingMovieDetail: false })
         }
+    },
 
+    handleDeleteMovie: async (id: number) => {
+        try {
+            await deleteMovie(id)
+        } catch (error) {
+            console.log(error)
+        }
     }
 }))
