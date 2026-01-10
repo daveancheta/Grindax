@@ -7,7 +7,7 @@ import { Clapperboard } from 'lucide-react'
 const Logo = () => {
     return (
         <Link href="/" className="flex items-center gap-3 group transition-opacity hover:opacity-80">
-            <img className='w-10 h-10 rounded-full' src="grindax.png" alt="" />
+            <img className='w-10 h-10 rounded-full' src="/grindax.png" alt="" />
             <span className="sm:text-2xl font-bold bg-linear-to-r from-yellow-400 
             to-yellow-600 bg-clip-text text-transparent text-md">
                 Grindax

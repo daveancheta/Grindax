@@ -129,8 +129,6 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
 
             const movie = await getMovieById(parseInt(id))
 
-            const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY
-
             if (!movie || !movie.title) return;
 
             const tmdbData = await searchMovie(movie?.title);
