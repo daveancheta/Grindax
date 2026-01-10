@@ -4,6 +4,7 @@ import { deleteMovie, getMovie, getMovieById, postMovie } from '../actions/movie
 import 'dotenv/config'
 import { MovieDTO } from '@/types/movie';
 import { TMDB_GENRES } from '@/lib/tmdb-constants';
+import { toast } from 'sonner';
 
 interface MovieState {
     isSubmitting: boolean;
@@ -159,6 +160,7 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
     handleDeleteMovie: async (id: number) => {
         try {
             await deleteMovie(id)
+            toast.success("Movie has been deleted successfully")
         } catch (error) {
             console.log(error)
         }

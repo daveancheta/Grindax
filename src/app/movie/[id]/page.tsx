@@ -127,7 +127,7 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                                 <DialogClose asChild>
                                                     <Button variant="outline">Cancel</Button>
                                                 </DialogClose>
-                                                <Button type="submit" variant={"destructive"}
+                                                <Button className='cursor-pointer' type="submit" variant={"destructive"}
                                                     onClick={() => handleDeleteMovieButton(Number(enrichedMoviesById?.id))}>
                                                     I&apos;m sure</Button>
                                             </DialogFooter>

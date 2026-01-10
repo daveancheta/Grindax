@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert"
 import { UseMovieStore } from "@/app/stores/use-movie-store"
+import { toast } from "sonner"
 
 
 function AddMovie() {
@@ -43,7 +44,7 @@ function AddMovie() {
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button className="mb-4 cursor-pointer"
-                            variant="default">
+                            variant="default" onClick={() => toast.success("adding")}>
                             <Plus />
                             Add Movie</Button>
                     </DialogTrigger>
