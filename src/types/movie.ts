@@ -10,4 +10,5 @@ export interface MovieDTO {
     vote_average?: number;
     popularity?: number;
     overview?: string;
+    genre?: string;
 }

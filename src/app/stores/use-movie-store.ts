@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { getMovie, getMovieById, postMovie } from '../actions/movie.action'
 import 'dotenv/config'
 import { MovieDTO } from '@/types/movie';
+import { TMDB_GENRES } from '@/lib/tmdb-constants';
 
 interface MovieState {
     isSubmitting: boolean;
@@ -132,7 +133,13 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
 
         const movieWithTMDBData: MovieDTO = {
             ...movie,
-            posterUrl: result?.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : "placeholder.png"
+            posterUrl: result?.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : "placeholder.png",
+            backdropUrl: result?.backdrop_path ? `https://image.tmdb.org/t/p/w500${result.backdrop_path}` : "placeholder.png",
+            voteAverage: result?.vote_average ? result.vote_average : null,
+            voteCount: result?.vote_count ? result.vote_count : null,
+            popularity: result?.popularity ? result.popularity : null,
+            overview: result?.overview ? result.overview : null,
+            genre: result?.genre_ids ? result.genre_ids.map((id: number) => TMDB_GENRES[id.toString()]).filter(Boolean): null,
         }
 
         set({ enrichedMoviesById: movieWithTMDBData })
