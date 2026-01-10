@@ -140,6 +140,7 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
             popularity: result?.popularity ? result.popularity : null,
             overview: result?.overview ? result.overview : null,
             genre: result?.genre_ids ? result.genre_ids.map((id: number) => TMDB_GENRES[id.toString()]).filter(Boolean): null,
+            releaseDate: result?.release_date ? result.release_date : null
         }
 
         set({ enrichedMoviesById: movieWithTMDBData })
