@@ -1,21 +1,8 @@
 "use client"
 import { cn } from '@/lib/utils';
+import { MovieDTO } from '@/types/movie';
 import { Flame, Star, Vote } from 'lucide-react';
 import { useState } from 'react';
-
-interface MovieDTO {
-    id: number;
-    title: string;
-    rate: number;
-    posterUrl?: string;
-    backdropUrl?: string;
-    voteAverage?: number;
-    voteCount?: number;
-    vote_count?: number;
-    vote_average?: number;
-    popularity?: number;
-    overview?: string;
-}
 
 function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
     voteAverage, voteCount, popularity, overview

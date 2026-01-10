@@ -2,20 +2,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
-export interface MovieDTO {
-    id: number;
-    title: string;
-    rate: number;
-    posterUrl?: string;
-    backdropUrl?: string;
-    voteAverage?: number;
-    voteCount?: number;
-    vote_count?: number;
-    vote_average?: number;
-    popularity?: number;
-    overview?: string;
-}
-
 export async function getMovie() {
     const { userId } = await auth();
     if (!userId) return [];
@@ -31,6 +17,23 @@ export async function getMovie() {
         title: m.title ?? "Untitled",
         rate: m.rate ? m.rate.toNumber() : 0
     }));
+}
+
+export async function getMovieById(id: number) {
+    const movie = await prisma.movie.findUnique({
+        where: {
+            id: id,
+        }
+    })
+
+    if(!movie) return null;
+
+    return {
+        id: movie.id,
+        title: movie.title ?? "Untitled",
+        rate: movie.rate ? movie.rate.toNumber() : 0
+    }
+      
 }
 
 export async function postMovie(formData: FormData) {

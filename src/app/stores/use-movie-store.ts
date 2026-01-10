@@ -1,6 +1,7 @@
 import { create } from 'zustand'
-import { getMovie, MovieDTO, postMovie } from '../actions/movie.action'
+import { getMovie, getMovieById, postMovie } from '../actions/movie.action'
 import 'dotenv/config'
+import { MovieDTO } from '@/types/movie';
 
 interface MovieState {
     isSubmitting: boolean;
@@ -11,6 +12,8 @@ interface MovieState {
     handleGetMovie: () => Promise<void>;
     movies: MovieDTO[];
     enrichedMovies: MovieDTO[];
+    enrichedMoviesById: MovieDTO | null,
+    handleGetMovieById: (params: Promise<{ id: string }>) => Promise<void>;
 }
 
 const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -31,6 +34,7 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
     isLoadingMovies: false,
     movies: [],
     enrichedMovies: [],
+    enrichedMoviesById: null,
 
     handlePostMovie: async (formData: FormData) => {
         set({ isSubmitting: true })
@@ -52,6 +56,7 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
                     title: title,
                     rate: rate
                 }
+
                 const updatedMovie = await getMovie();
                 const newMovie = updatedMovie[updatedMovie.length - 1]
 
@@ -111,5 +116,26 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
         } finally {
             set({ isLoadingMovies: false })
         }
+    },
+
+    handleGetMovieById: async (params) => {
+        const { id } = await params
+
+        const movie = await getMovieById(parseInt(id))
+
+        const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY
+
+        if (!movie || !movie.title) return;
+
+        const tmdbData = await searchMovie(movie?.title);
+        const result = tmdbData.results[0]
+
+        const movieWithTMDBData: MovieDTO = {
+            ...movie,
+            posterUrl: result?.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : "placeholder.png"
+        }
+
+        set({ enrichedMoviesById: movieWithTMDBData })
+
     }
 }))
