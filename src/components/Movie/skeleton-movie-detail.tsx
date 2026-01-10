@@ -6,7 +6,7 @@ function SkeletonMovieDetail() {
             <div className='wrapper py-8 sm:py-12 lg:py-16'>
                 <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-12 items-start lg:items-start'>
                     <div className='w-full lg:w-auto shrink-0 mx-auto lg:mx-0'>
-                        <Skeleton className='rounded-xl w-full sm:max-w-md lg:w-[400px] xl:w-[450px] aspect-2/3' />
+                        <Skeleton className='rounded-xl w-full sm:max-w-md lg:w-[400px] xl:w-[450px] sm:aspect-2/3 aspect-2/1' />
                     </div>
 
                     <div className='flex-1 w-full space-y-6 lg:space-y-8'>
