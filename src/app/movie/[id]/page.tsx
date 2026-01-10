@@ -1,10 +1,11 @@
 "use client"
-import { getMovieById } from '@/app/actions/movie.action'
 import { useIsMobile } from '@/app/hooks/use-mobile';
 import { UseMovieStore } from '@/app/stores/use-movie-store';
 import SkeletonMovieDetail from '@/components/Movie/skeleton-movie-detail';
 import { Badge } from '@/components/ui/badge';
-import { Flame, Star, Vote } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Flame, MoreHorizontalIcon, Star, Vote } from 'lucide-react';
 import { useEffect } from 'react';
 
 export const genreColors: Record<string, string> = {
@@ -42,7 +43,7 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
         handleGetMovieById(params)
     }, [handleGetMovieById])
 
-    if (isLoadingMovieDetail) return <SkeletonMovieDetail/>
+    if (isLoadingMovieDetail) return <SkeletonMovieDetail />
 
     return (
         <div className='relative min-h-screen'>
@@ -70,9 +71,31 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
 
                         <div className='flex-1 w-full space-y-6 lg:space-y-8 text-white'>
                             <div className='space-y-4'>
-                                <h1 className='font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight drop-shadow-lg uppercase'>
-                                    {enrichedMoviesById?.title}
-                                </h1>
+                                <div className='flex flex-row items-center gap-2'>
+                                    <h1 className='font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight drop-shadow-lg uppercase'>
+                                        {enrichedMoviesById?.title}
+                                    </h1>
+                                    <DropdownMenu modal={false}>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="outline" aria-label="Open menu" size="icon-sm">
+                                                <MoreHorizontalIcon />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent className="w-40" align="end">
+                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                            <DropdownMenuGroup>
+                                                <DropdownMenuItem>
+                                                    Edit
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem variant='destructive'>
+                                                    Delete
+                                                </DropdownMenuItem>
+
+                                            </DropdownMenuGroup>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </div>
+
 
                                 <div className='flex flex-wrap items-center gap-3'>
                                     <div className='flex items-center gap-2 px-4 py-2.5 backdrop-blur-md bg-white/20 rounded-lg border border-white/30 shadow-lg hover:bg-white/30 transition-colors'>
