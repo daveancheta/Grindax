@@ -9,6 +9,7 @@ interface MovieState {
     isSuccess: boolean;
     isError: boolean;
     isLoadingMovies: boolean;
+    isLoadingMovieDetail: boolean,
     handlePostMovie: (formData: FormData) => Promise<void>;
     handleGetMovie: () => Promise<void>;
     movies: MovieDTO[];
@@ -33,6 +34,7 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
     isSuccess: false,
     isError: false,
     isLoadingMovies: false,
+    isLoadingMovieDetail: false,
     movies: [],
     enrichedMovies: [],
     enrichedMoviesById: null,
@@ -120,30 +122,38 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
     },
 
     handleGetMovieById: async (params) => {
-        const { id } = await params
+        set({ isLoadingMovieDetail: true })
 
-        const movie = await getMovieById(parseInt(id))
+        try {
+            const { id } = await params
 
-        const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY
+            const movie = await getMovieById(parseInt(id))
 
-        if (!movie || !movie.title) return;
+            const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY
 
-        const tmdbData = await searchMovie(movie?.title);
-        const result = tmdbData.results[0]
+            if (!movie || !movie.title) return;
 
-        const movieWithTMDBData: MovieDTO = {
-            ...movie,
-            posterUrl: result?.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : "placeholder.png",
-            backdropUrl: result?.backdrop_path ? `https://image.tmdb.org/t/p/w500${result.backdrop_path}` : "placeholder.png",
-            voteAverage: result?.vote_average ? result.vote_average : null,
-            voteCount: result?.vote_count ? result.vote_count : null,
-            popularity: result?.popularity ? result.popularity : null,
-            overview: result?.overview ? result.overview : null,
-            genre: result?.genre_ids ? result.genre_ids.map((id: number) => TMDB_GENRES[id.toString()]).filter(Boolean): null,
-            releaseDate: result?.release_date ? result.release_date : null
+            const tmdbData = await searchMovie(movie?.title);
+            const result = tmdbData.results[0]
+
+            const movieWithTMDBData: MovieDTO = {
+                ...movie,
+                posterUrl: result?.poster_path ? `https://image.tmdb.org/t/p/w500${result.poster_path}` : "placeholder.png",
+                backdropUrl: result?.backdrop_path ? `https://image.tmdb.org/t/p/w500${result.backdrop_path}` : "placeholder.png",
+                voteAverage: result?.vote_average ? result.vote_average : null,
+                voteCount: result?.vote_count ? result.vote_count : null,
+                popularity: result?.popularity ? result.popularity : null,
+                overview: result?.overview ? result.overview : null,
+                genre: result?.genre_ids ? result.genre_ids.map((id: number) => TMDB_GENRES[id.toString()]).filter(Boolean) : null,
+                releaseDate: result?.release_date ? result.release_date : null
+            }
+
+            set({ enrichedMoviesById: movieWithTMDBData })
+        } catch (error) {
+            console.log(error)
+        } finally {
+            set({ isLoadingMovieDetail: false })
         }
-
-        set({ enrichedMoviesById: movieWithTMDBData })
 
     }
 }))

@@ -2,6 +2,7 @@
 import { getMovieById } from '@/app/actions/movie.action'
 import { useIsMobile } from '@/app/hooks/use-mobile';
 import { UseMovieStore } from '@/app/stores/use-movie-store';
+import SkeletonMovieDetail from '@/components/Movie/skeleton-movie-detail';
 import { Badge } from '@/components/ui/badge';
 import { Flame, Star, Vote } from 'lucide-react';
 import { useEffect } from 'react';
@@ -34,12 +35,14 @@ export function getGenreColors(genre: string): string {
 
 
 function Movie({ params }: { params: Promise<{ id: string }> }) {
-    const { handleGetMovieById, enrichedMoviesById } = UseMovieStore()
+    const { handleGetMovieById, enrichedMoviesById, isLoadingMovieDetail } = UseMovieStore()
     const isMobile = useIsMobile();
 
     useEffect(() => {
         handleGetMovieById(params)
     }, [handleGetMovieById])
+
+    if (isLoadingMovieDetail) return <SkeletonMovieDetail/>
 
     return (
         <div className='relative min-h-screen'>
