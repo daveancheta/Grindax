@@ -19,7 +19,7 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
                     setIsHover(0)
                 }}>
                 <img className='rounded-md border border-white w-full 
-                                max-h-110 sm:min-h-110 object-cover' src={posterUrl && posterUrl.length !== 24 ? posterUrl : "placeholder.png"}
+                                max-h-110 sm:min-h-110 object-cover aspect-2/3' src={posterUrl && posterUrl.length !== 24 ? posterUrl : "placeholder.png"}
                     draggable={false} alt="" />
                 <div className='absolute bottom-0 left-0 w-full 
                         bg-linear-to-t from-black/70 to-transparent p-4 flex flex-col 
