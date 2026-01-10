@@ -2,6 +2,7 @@
 import { cn } from '@/lib/utils';
 import { MovieDTO } from '@/types/movie';
 import { Flame, Star, Vote } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
@@ -65,7 +66,7 @@ function MovieDisplay({ id, title, posterUrl, rate, backdropUrl,
                     </span>
                     <p className='wrap-break-word w-fit'>
                         {overview && overview.length > 120 ? <>
-                            {overview?.slice(0, 120) + '...'}<button className='font-bold cursor-pointer'>see more</button>
+                            {overview?.slice(0, 120) + '...'}<Link href={`movie/${id}`} className='font-bold cursor-pointer'>see more</Link>
                         </>
                             :
                             overview || overview === null && "Undefined"}
