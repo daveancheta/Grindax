@@ -9,7 +9,7 @@ export default function Home() {
         <MovieList />
       </SignedIn>
       <SignedOut>
-        <EmptyState />
+        
       </SignedOut>
     </div>
   )

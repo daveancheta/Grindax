@@ -22,9 +22,12 @@ export async function getMovie() {
 
 // Get movie by the id
 export async function getMovieById(id: number) {
+    const { userId } = await auth();
+
     const movie = await prisma.movie.findUnique({
         where: {
             id: id,
+            posted_by: userId
         }
     })
 
