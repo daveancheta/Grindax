@@ -44,7 +44,7 @@ function AddMovie() {
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button className="mb-4 cursor-pointer"
-                            variant="default" onClick={() => toast.success("adding")}>
+                            variant="default">
                             <Plus />
                             Add Movie</Button>
                     </DialogTrigger>

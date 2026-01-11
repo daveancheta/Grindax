@@ -18,7 +18,7 @@ interface MovieState {
     enrichedMovies: MovieDTO[];
     enrichedMoviesById: MovieDTO | null,
     handleGetMovieById: (params: Promise<{ id: string }>) => Promise<void>;
-    handleDeleteMovie: (id: number) => Promise<void>;
+    handleDeleteMovie: (id: number, title: string) => Promise<void>;
 }
 
 const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -157,10 +157,10 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
         }
     },
 
-    handleDeleteMovie: async (id: number) => {
+    handleDeleteMovie: async (id: number, title: string) => {
         try {
             await deleteMovie(id)
-            toast.success("Movie has been deleted successfully")
+            toast.success(`${title} has been deleted successfully`)
         } catch (error) {
             console.log(error)
         }

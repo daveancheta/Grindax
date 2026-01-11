@@ -61,8 +61,8 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
 
     if (isLoadingMovieDetail) return <SkeletonMovieDetail />
 
-    const handleDeleteMovieButton = async (id: number) => {
-        handleDeleteMovie(id)
+    const handleDeleteMovieButton = async (id: number, title: string) => {
+        handleDeleteMovie(id, title)
         router.push("/")
     }
 
@@ -128,7 +128,7 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                                     <Button variant="outline">Cancel</Button>
                                                 </DialogClose>
                                                 <Button className='cursor-pointer' type="submit" variant={"destructive"}
-                                                    onClick={() => handleDeleteMovieButton(Number(enrichedMoviesById?.id))}>
+                                                    onClick={() => handleDeleteMovieButton(Number(enrichedMoviesById?.id), enrichedMoviesById?.title?.toUpperCase() ?? "")}>
                                                     I&apos;m sure</Button>
                                             </DialogFooter>
                                         </DialogContent>
