@@ -2,6 +2,8 @@
 
 A modern, full-stack movie collection management application built with Next.js. Create, view, and manage your personal movie collection with automatic movie data enrichment from The Movie Database (TMDB) API.
 
+**Status: ✅ Project Complete**
+
 ## Features
 
 - 🎬 **Movie Management**: Add movies to your personal collection with title and rating
@@ -9,7 +11,7 @@ A modern, full-stack movie collection management application built with Next.js.
 - 🎨 **Beautiful UI**: Modern, responsive interface built with Tailwind CSS and Radix UI
 - 📊 **Movie Enrichment**: Automatic fetching of movie posters, backdrops, ratings, and metadata from TMDB
 - 🖼️ **Movie Details**: View detailed movie information with beautiful backdrop displays
-- ⚡ **Real-time Updates**: Instant UI updates using Zustand state management
+- ⚡ **Optimistic Updates**: Instant UI updates using Zustand state management
 - 🎭 **Loading States**: Skeleton loaders and smooth transitions with GSAP animations
 - 📱 **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 
