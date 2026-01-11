@@ -8,7 +8,7 @@ A modern, full-stack movie collection management application built with Next.js.
 
 - 🎬 **Movie Management**: Add movies to your personal collection with title and rating
 - 🔐 **User Authentication**: Secure authentication using Clerk
-- 🎨 **Beautiful UI**: Modern, responsive interface built with Tailwind CSS and Radix UI
+- 🎨 **Beautiful UI**: Modern, responsive interface built with Tailwind CSS and shadcn/ui
 - 📊 **Movie Enrichment**: Automatic fetching of movie posters, backdrops, ratings, and metadata from TMDB
 - 🖼️ **Movie Details**: View detailed movie information with beautiful backdrop displays
 - ⚡ **Optimistic Updates**: Instant UI updates using Zustand state management
@@ -23,9 +23,9 @@ A modern, full-stack movie collection management application built with Next.js.
 - **Authentication**: [Clerk](https://clerk.com/)
 - **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
 - **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **UI Components**: [Radix UI](https://www.radix-ui.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
 - **Animations**: [GSAP](https://gsap.com/)
-- **Notifications**: [React Hot Toast](https://react-hot-toast.com/)
+- **Notifications**: [Sonner](https://ui.shadcn.com/docs/components/sonner) (shadcn/ui)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **API Integration**: [The Movie Database (TMDB)](https://www.themoviedb.org/)
 
