@@ -63,7 +63,12 @@ function AddMovie() {
                                 </div>
                                 <div className="grid gap-3 mb-4">
                                     <Label htmlFor="rate">Rate</Label>
-                                    <Input type="number" step="0.1" id="rate" name="rate" placeholder="8.5" />
+                                    <Input type="number" step="0.1" min="0" max="10" id="rate" name="rate" placeholder="8.5"
+                                        onChange={(e) => {
+                                            const target = e.target as HTMLInputElement;
+                                            if (Number(target.value) > 10) target.value = "10";
+                                            if (Number(target.value) < 0) target.value = "0";
+                                        }} />
                                 </div>
                             </div>
                             <DialogFooter>

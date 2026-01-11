@@ -146,8 +146,8 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                                 <div className="grid gap-4 mt-4 mb-4">
                                                     <div className="grid gap-3">
                                                         <Label htmlFor="rate">Rate</Label>
-                                                        <Input id="rate" name="rate" step="0.1" min="1" max="10" defaultValue={enrichedMoviesById?.rate}
-                                                            onInput={(e) => {
+                                                        <Input type="number" id="rate" name="rate" step="0.1" min="1" max="10" defaultValue={enrichedMoviesById?.rate}
+                                                            onChange={(e) => {
                                                                 const target = e.target as HTMLInputElement;
                                                                 if (Number(target.value) > 10) target.value = "10";
                                                                 if (Number(target.value) < 0) target.value = "0";
