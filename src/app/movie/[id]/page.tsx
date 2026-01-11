@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import EmptyStateSingle from '@/components/Movie/empty-state-single';
 
 
 export const genreColors: Record<string, string> = {
@@ -66,6 +67,8 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
         handleUpdateMovie(id, formData)
         router.push("/")
     }
+
+    if (!enrichedMoviesById?.title) return <EmptyStateSingle/>;
 
     return (
         <div className='relative min-h-screen'>
