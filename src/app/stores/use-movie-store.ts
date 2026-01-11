@@ -1,6 +1,6 @@
 "use client"
 import { create } from 'zustand'
-import { deleteMovie, getMovie, getMovieById, postMovie } from '../actions/movie.action'
+import { deleteMovie, getMovie, getMovieById, postMovie, updateMovie } from '../actions/movie.action'
 import 'dotenv/config'
 import { MovieDTO } from '@/types/movie';
 import { TMDB_GENRES } from '@/lib/tmdb-constants';
@@ -16,6 +16,7 @@ interface MovieState {
     enrichedMovies: MovieDTO[];
     enrichedMoviesById: MovieDTO | null,
     handleGetMovieById: (params: Promise<{ id: string }>) => Promise<void>;
+    handleUpdateMovie: (id: number, formData: FormData) => Promise<void>;
     handleDeleteMovie: (id: number, title: string) => Promise<void>;
 }
 
@@ -144,6 +145,19 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
             console.log(error)
         } finally {
             set({ isLoadingMovieDetail: false })
+        }
+    },
+
+    handleUpdateMovie: async (id: number, formData: FormData) => {
+        try {
+            const res = await updateMovie(id, formData)
+            if (res.success) {
+                toast.success(res.message)
+            } else {
+                toast.error(res.message)
+            }
+        } catch (error) {
+            console.log(error)
         }
     },
 

@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
+// Get all of the movie
 export async function getMovie() {
     const { userId } = await auth();
     if (!userId) return [];
@@ -19,6 +20,7 @@ export async function getMovie() {
     }));
 }
 
+// Get movie by the id
 export async function getMovieById(id: number) {
     const movie = await prisma.movie.findUnique({
         where: {
@@ -33,73 +35,91 @@ export async function getMovieById(id: number) {
         title: movie.title ?? "Untitled",
         rate: movie.rate ? movie.rate.toNumber() : 0
     }
-
 }
 
+// Submit a movie
 export async function postMovie(formData: FormData) {
     const title = formData.get("title")?.toString();
     const rate = Number(formData.get("rate"));
     const { userId } = await auth();
 
-    try {
-        if (!userId) {
-            throw new Error("Unauthorized")
-        }
+    if (!userId) {
+        throw new Error("Unauthorized")
+    }
 
-        if (!title || !rate) {
-            return {
-                success: false,
-                message: "Ensure all fields are filled correctly"
-            }
-        }
-
-        const inputMovie = await prisma.movie.findFirst({
-            where: {
-                title: title?.toLowerCase()
-            }
-        })
-
-        if (inputMovie) return {
-            success: false,
-            message: "Movie already exist in the collection."
-        }
-
-        await prisma.movie.create({
-            data: {
-                title: title?.toLowerCase(),
-                rate,
-                posted_by: userId
-            }
-        })
-
-        return {
-            success: true,
-            message: "Movie added! You can view it in your collection."
-        }
-
-    } catch (error) {
-        console.log("Error in Post Movie", error);
+    if (!title || !rate) {
         return {
             success: false,
-            message: "Error in Post Movie"
+            message: "Ensure all fields are filled correctly"
         }
+    }
+
+    const inputMovie = await prisma.movie.findFirst({
+        where: {
+            title: title?.toLowerCase()
+        }
+    })
+
+    if (inputMovie) return {
+        success: false,
+        message: "Movie already exist in the collection."
+    }
+
+    await prisma.movie.create({
+        data: {
+            title: title?.toLowerCase(),
+            rate,
+            posted_by: userId
+        }
+    })
+
+    return {
+        success: true,
+        message: "Movie added! You can view it in your collection."
     }
 }
 
-export async function deleteMovie(id: number) {
-    try {
-        const { userId } = await auth();
+// Update a movie
+export async function updateMovie(id: number, formData: FormData) {
+    const rate = Number(formData.get("rate"))
 
-        if (!userId) {
-            throw new Error("Unauthorized")
-        }
+    const { userId } = await auth();
 
-        await prisma.movie.delete({
-            where: {
-                id: id
-            }
-        })
-    } catch (error) {
-        console.log(error)
+    if (!userId) {
+        throw new Error("Unauthorized")
     }
+
+    if (!rate) return {
+        success: false,
+        message: "The rate field is required."
+    }
+
+    await prisma.movie.update({
+        where: {
+            id: id
+        },
+        data: {
+            rate: rate
+        }
+    })
+
+    return {
+        success: true,
+        message: `Movie has been updated successfully!`
+    }
+}
+
+// Delete a movie
+export async function deleteMovie(id: number) {
+    const { userId } = await auth();
+
+    if (!userId) {
+        throw new Error("Unauthorized")
+    }
+
+    await prisma.movie.delete({
+        where: {
+            id: id
+        }
+    })
 }

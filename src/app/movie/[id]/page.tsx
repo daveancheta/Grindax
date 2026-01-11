@@ -9,6 +9,8 @@ import { Flame, MoreHorizontalIcon, Star, Vote } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 
 export const genreColors: Record<string, string> = {
@@ -39,10 +41,11 @@ export function getGenreColors(genre: string): string {
 
 
 function Movie({ params }: { params: Promise<{ id: string }> }) {
-    const { handleGetMovieById, enrichedMoviesById, isLoadingMovieDetail, handleDeleteMovie } = UseMovieStore()
+    const { handleGetMovieById, enrichedMoviesById, isLoadingMovieDetail, handleDeleteMovie, handleUpdateMovie } = UseMovieStore()
     const isMobile = useIsMobile();
     const router = useRouter();
     const [open, setOpen] = useState<boolean>(false)
+    const [openUpdateForm, setOpenUpdateForm] = useState<boolean>(false)
 
     useEffect(() => {
         handleGetMovieById(params)
@@ -55,9 +58,17 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
         router.push("/")
     }
 
+    const handleUpdateMovieForm = (e: React.FormEvent<HTMLFormElement>, id: number) => {
+        e.preventDefault()
+
+        const formData = new FormData(e.currentTarget)
+
+        handleUpdateMovie(id, formData)
+        router.push("/")
+    }
+
     return (
         <div className='relative min-h-screen'>
-            {/* Background backdrop image */}
             <div className='fixed inset-0 w-full h-full -z-10'>
                 <img
                     className='object-cover w-full h-full'
@@ -68,7 +79,6 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                 <div className='fixed inset-0 backdrop-blur-sm bg-black/20'></div>
             </div>
 
-            {/* Main content */}
             <div className='relative z-10 min-h-screen'>
                 <div className='wrapper py-8 sm:py-12 lg:py-16'>
                     <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-12 items-start lg:items-start'>
@@ -94,7 +104,7 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                         <DropdownMenuContent className="w-40" align="end">
                                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                             <DropdownMenuGroup>
-                                                <DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => setOpenUpdateForm(true)}>
                                                     Edit
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem variant='destructive'
@@ -120,6 +130,37 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                                     onClick={() => handleDeleteMovieButton(Number(enrichedMoviesById?.id), enrichedMoviesById?.title?.toUpperCase() ?? "")}>
                                                     I&apos;m sure</Button>
                                             </DialogFooter>
+                                        </DialogContent>
+                                    </Dialog>
+
+                                    <Dialog open={openUpdateForm} onOpenChange={setOpenUpdateForm} modal={false}>
+                                        <DialogContent className="sm:max-w-[425px]" onInteractOutside={(event) => event.preventDefault()}>
+                                            <form onSubmit={(e) => handleUpdateMovieForm(e, Number(enrichedMoviesById?.id))}>
+                                                <DialogHeader>
+                                                    <DialogTitle className='capitalize'>Edit {enrichedMoviesById?.title}</DialogTitle>
+                                                    <DialogDescription>
+                                                        Make changes to <span className='capitalize'>{enrichedMoviesById?.title}</span> here. Click save when you&apos;re
+                                                        done.
+                                                    </DialogDescription>
+                                                </DialogHeader>
+                                                <div className="grid gap-4 mt-4 mb-4">
+                                                    <div className="grid gap-3">
+                                                        <Label htmlFor="rate">Rate</Label>
+                                                        <Input id="rate" name="rate" step="0.1" min="1" max="10" defaultValue={enrichedMoviesById?.rate}
+                                                            onInput={(e) => {
+                                                                const target = e.target as HTMLInputElement;
+                                                                if (Number(target.value) > 10) target.value = "10";
+                                                                if (Number(target.value) < 0) target.value = "0";
+                                                            }} />
+                                                    </div>
+                                                </div>
+                                                <DialogFooter>
+                                                    <DialogClose asChild>
+                                                        <Button variant="outline">Cancel</Button>
+                                                    </DialogClose>
+                                                    <Button type="submit">Save changes</Button>
+                                                </DialogFooter>
+                                            </form>
                                         </DialogContent>
                                     </Dialog>
                                 </div>
