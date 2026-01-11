@@ -7,7 +7,6 @@ function Footer() {
       <footer className='bg-black/80 backdrop-blur-xl border-t border-white/10 w-full mt-auto'>
         <div className='max-w-7xl mx-auto px-6 lg:px-8 py-16'>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-12 mb-12'>
-            {/* Brand Section */}
             <div className='space-y-4'>
               <Link 
                 href="/" 
@@ -27,7 +26,6 @@ function Footer() {
               </p>
             </div>
 
-            {/* Features Section */}
             <div className='space-y-4'>
               <h3 className='font-semibold text-white text-sm uppercase tracking-wider'>
                 Features
@@ -45,7 +43,6 @@ function Footer() {
               </ul>
             </div>
 
-            {/* Tech Stack Section */}
             <div className='space-y-4'>
               <h3 className='font-semibold text-white text-sm uppercase tracking-wider'>
                 Tech Stack
@@ -105,7 +102,6 @@ function Footer() {
             </div>
           </div>
 
-          {/* Bottom Bar */}
           <div className='pt-8 border-t border-white/10'>
             <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
               <p className='text-muted-foreground text-sm'>
