@@ -21,7 +21,7 @@ import { toast } from "sonner"
 
 
 function AddMovie() {
-    const { handlePostMovie, isSubmitting, isSuccess, isError } = UseMovieStore();
+    const { handlePostMovie, isSubmitting } = UseMovieStore();
 
     const handleSubmitMovie = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -56,37 +56,6 @@ function AddMovie() {
                                     Add a new movie to your collection by providing its title, image URL, and rating. Make sure the details are accurate before submitting.
                                 </DialogDescription>
                             </DialogHeader>
-                            <div className="mt-5">
-                                {isSuccess &&
-                                    <Alert>
-                                        <CheckCircle2Icon />
-                                        <AlertTitle>Success! Your changes have been saved</AlertTitle>
-                                        <AlertDescription>
-                                            Movie added! You can view it in your collection.
-                                        </AlertDescription>
-                                    </Alert>
-                                }
-                            </div>
-
-                            <div>
-                                {isError &&
-                                    <div>
-                                        <Alert variant="destructive">
-                                            <AlertCircleIcon />
-                                            <AlertTitle>Unable to add movie</AlertTitle>
-                                            <AlertDescription>
-                                                <p>We couldn’t save your movie.</p>
-                                                <ul className="list-inside list-disc text-sm">
-                                                    <li>Please check that all fields are filled out correctly.</li>
-                                                    <li>This movie may already exist in the database.</li>
-                                                </ul>
-                                            </AlertDescription>
-                                        </Alert>
-
-                                    </div>
-                                }
-                            </div>
-
                             <div className="grid gap-4 mt-4">
                                 <div className="grid gap-3">
                                     <Label htmlFor="title">Movie Title</Label>

@@ -1,7 +1,6 @@
 "use server"
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 export async function getMovie() {
     const { userId } = await auth();
@@ -61,10 +60,11 @@ export async function postMovie(formData: FormData) {
         })
 
         if (inputMovie) return {
-            success: false
+            success: false,
+            message: "Movie already exist in the collection."
         }
 
-        const movie = await prisma.movie.create({
+        await prisma.movie.create({
             data: {
                 title: title?.toLowerCase(),
                 rate,

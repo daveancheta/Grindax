@@ -8,8 +8,6 @@ import { toast } from 'sonner';
 
 interface MovieState {
     isSubmitting: boolean;
-    isSuccess: boolean;
-    isError: boolean;
     isLoadingMovies: boolean;
     isLoadingMovieDetail: boolean,
     handlePostMovie: (formData: FormData) => Promise<void>;
@@ -34,8 +32,6 @@ const searchMovie = async (movieName: string) => {
 
 export const UseMovieStore = create<MovieState>((set, get) => ({
     isSubmitting: false,
-    isSuccess: false,
-    isError: false,
     isLoadingMovies: false,
     isLoadingMovieDetail: false,
     movies: [],
@@ -76,16 +72,11 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
                     overview: result?.overview ? result.overview : null
                 }
                 set({
-                    isSuccess: true,
-                    isError: false,
-                    movies: [...previousMovies, optimisticMovies],
                     enrichedMovies: [...previousEnrichedMovies, enrichedMovies]
                 })
+                toast.success(res.message)
             } else {
-                set({
-                    isError: true,
-                    isSuccess: false
-                })
+                toast.error(res.message)
             }
         } catch (error) {
             console.log(error)
@@ -148,7 +139,6 @@ export const UseMovieStore = create<MovieState>((set, get) => ({
                 genre: result?.genre_ids ? result.genre_ids.map((id: number) => TMDB_GENRES[id.toString()]).filter(Boolean) : null,
                 releaseDate: result?.release_date ? result.release_date : null
             }
-
             set({ enrichedMoviesById: movieWithTMDBData })
         } catch (error) {
             console.log(error)
