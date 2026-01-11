@@ -154,7 +154,7 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                                                 const target = e.target as HTMLInputElement;
                                                                 if (Number(target.value) > 10) target.value = "10";
                                                                 if (Number(target.value) < 0) target.value = "0";
-                                                            }} />
+                                                            }} autoComplete="off"/>
                                                     </div>
                                                 </div>
                                                 <DialogFooter>

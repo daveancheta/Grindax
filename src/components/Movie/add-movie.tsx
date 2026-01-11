@@ -59,7 +59,7 @@ function AddMovie() {
                             <div className="grid gap-4 mt-4">
                                 <div className="grid gap-3">
                                     <Label htmlFor="title">Movie Title</Label>
-                                    <Input id="title" name="title" placeholder="Redeeming Love" />
+                                    <Input id="title" name="title" placeholder="Redeeming Love" autoComplete="off"/>
                                 </div>
                                 <div className="grid gap-3 mb-4">
                                     <Label htmlFor="rate">Rate</Label>
@@ -68,7 +68,7 @@ function AddMovie() {
                                             const target = e.target as HTMLInputElement;
                                             if (Number(target.value) > 10) target.value = "10";
                                             if (Number(target.value) < 0) target.value = "0";
-                                        }} />
+                                        }} autoComplete="off"/>
                                 </div>
                             </div>
                             <DialogFooter>
