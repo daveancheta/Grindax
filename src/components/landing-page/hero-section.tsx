@@ -57,13 +57,7 @@ function HeroSection() {
                 className="w-full h-auto rounded-lg shadow-2xl border border-white/10"
               />
             </div>
-            <div className="lg:hidden flex justify-center">
-              <img 
-                src="/grindax-mobile.png" 
-                alt="Grindax Mobile Preview" 
-                className="w-full max-w-xs h-auto rounded-lg shadow-2xl border border-white/10"
-              />
-            </div>
+           
           </div>
         </div>
       </div>

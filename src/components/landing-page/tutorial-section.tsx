@@ -1,6 +1,3 @@
-import { SignInButton, SignUpButton } from '@clerk/nextjs'
-import { Button } from '../ui/button'
-
 function TutorialSection() {
   return (
     <section className="wrapper py-16 sm:py-20 lg:py-24">
@@ -22,7 +19,7 @@ function TutorialSection() {
         <div className="space-y-6 lg:space-y-8">
           <div className="space-y-4">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
                 Learn How to Use
               </span>
               <br />
