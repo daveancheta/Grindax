@@ -17,7 +17,7 @@ function Footer() {
                   src="/grindax.png" 
                   alt="Grindax Logo" 
                 />
-                <span className="text-xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+                <span className="text-xl font-bold bg-linear-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
                   Grindax
                 </span>
               </Link>
