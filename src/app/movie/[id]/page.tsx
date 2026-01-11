@@ -169,19 +169,19 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                                     <div className='flex items-center gap-2 px-4 py-2.5 backdrop-blur-md bg-white/20 rounded-lg border border-white/30 shadow-lg hover:bg-white/30 transition-colors'>
                                         <Star className='w-5 h-5 text-yellow-400 fill-yellow-400' />
                                         <span className='font-semibold text-sm sm:text-base'>
-                                            {enrichedMoviesById?.voteAverage?.toFixed(1)}
+                                            {enrichedMoviesById?.voteAverage?.toFixed(1)} - TMDB
                                         </span>
                                     </div>
                                     <div className='flex items-center gap-2 px-4 py-2.5 backdrop-blur-md bg-white/20 rounded-lg border border-white/30 shadow-lg hover:bg-white/30 transition-colors'>
                                         <Vote className='w-5 h-5 text-green-400' />
                                         <span className='font-semibold text-sm sm:text-base'>
-                                            {enrichedMoviesById?.voteCount?.toLocaleString('en-PH')}
+                                            {enrichedMoviesById?.voteCount?.toLocaleString('en-PH')} - TMDB
                                         </span>
                                     </div>
                                     <div className='flex items-center gap-2 px-4 py-2.5 backdrop-blur-md bg-white/20 rounded-lg border border-white/30 shadow-lg hover:bg-white/30 transition-colors'>
                                         <Flame className='w-5 h-5 text-orange-400 fill-orange-400' />
                                         <span className='font-semibold text-sm sm:text-base'>
-                                            {enrichedMoviesById?.popularity?.toFixed(1)}
+                                            {enrichedMoviesById?.popularity?.toFixed(1)} - TMDB
                                         </span>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@ function Movie({ params }: { params: Promise<{ id: string }> }) {
                             {enrichedMoviesById?.genre && enrichedMoviesById.genre.length > 0 && (
                                 <div className='space-y-3'>
                                     <h6 className='font-semibold uppercase text-sm sm:text-base text-white/80 tracking-wide'>
-                                        Genres
+                                        {enrichedMoviesById.genre.length > 1 ? "Genres" : "Genre"}
                                     </h6>
                                     <div className='flex flex-wrap gap-2'>
                                         {enrichedMoviesById.genre.map((genreName: string, index: number) => (
