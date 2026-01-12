@@ -88,27 +88,34 @@ function Footer() {
                     Prisma
                   </Link>
                 </li>
-                <li>
-                  <Link 
-                    href="https://www.themoviedb.org/" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className='text-muted-foreground hover:text-yellow-400 transition-colors text-sm leading-relaxed inline-block'
-                  >
-                    Powered by TMDB
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>
 
-          <div className='pt-8 border-t border-white/10'>
+          <div className='pt-8 border-t border-white/10 space-y-4'>
             <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
               <p className='text-muted-foreground text-sm'>
                 © {currentYear} Grindax. All rights reserved.
               </p>
               <p className='text-muted-foreground/70 text-xs'>
                 Developed by Heaven Dave ancheta
+              </p>
+            </div>
+            <div className='text-center space-y-3'>
+              <Link 
+                href="https://www.themoviedb.org/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className='inline-block opacity-70 hover:opacity-100 transition-opacity'
+              >
+                <img 
+                  src="/tmdb.svg" 
+                  alt="The Movie Database" 
+                  className='h-6 w-auto mx-auto'
+                />
+              </Link>
+              <p className='text-muted-foreground/70 text-xs'>
+                This product uses the TMDB API but is not endorsed or certified by TMDB.
               </p>
             </div>
           </div>
