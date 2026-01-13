@@ -59,7 +59,8 @@ export async function postMovie(formData: FormData) {
 
     const inputMovie = await prisma.movie.findFirst({
         where: {
-            title: title?.toLowerCase()
+            title: title?.toLowerCase(),
+            posted_by: userId
         }
     })
 
